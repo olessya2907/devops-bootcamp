@@ -25,17 +25,23 @@ devops-bootcamp/
 ├── app/
 │   ├── backend/          # Node.js API
 │   │   ├── app.js
-│   │   └── package.json
+│   │   ├── package.json
+│   │   └── Dockerfile         # появился на Л9
 │   └── frontend/         # Nginx + статика
 │       ├── index.html
 │       └── nginx.conf
 └── lectures/             # файлы для практики на каждой лекции
-    └── lecture8/         # Terraform: EC2 + nginx + User Data
-        ├── main.tf
-        ├── variables.tf
-        ├── outputs.tf
-        ├── terraform.tfvars.example
-        └── modules/ec2/
+    ├── lecture8/         # Terraform: EC2 + nginx + User Data
+    │   ├── main.tf
+    │   ├── variables.tf
+    │   ├── outputs.tf
+    │   ├── terraform.tfvars.example
+    │   ├── commands.md
+    │   ├── homework.md
+    │   └── modules/ec2/
+    └── lecture9/         # Docker: сборка образа backend
+        ├── commands.md
+        └── homework.md
 ```
 
 ## Правила безопасности
