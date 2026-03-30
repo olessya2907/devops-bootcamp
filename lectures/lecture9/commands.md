@@ -103,8 +103,15 @@ curl http://localhost:3000/info
 ```
 
 ```powershell
-# Windows (PowerShell):
-Invoke-WebRequest -Uri http://localhost:3000/health | Select-Object -Expand Content
+# Windows (PowerShell) — использовать curl.exe, не curl:
+curl.exe http://localhost:3000/health
+curl.exe http://localhost:3000/info
+```
+
+```bash
+# macOS / Linux:
+curl http://localhost:3000/health
+curl http://localhost:3000/info
 ```
 
 Или просто открой в браузере: `http://localhost:3000/health`

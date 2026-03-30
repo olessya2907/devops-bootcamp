@@ -22,6 +22,7 @@ Browser → Nginx (port 8080) → Node.js Backend → Redis
 
 ```
 devops-bootcamp/
+├── docker-compose.yml    # появился на Л10 — запускает весь стек
 ├── app/
 │   ├── backend/          # Node.js API
 │   │   ├── app.js
@@ -39,7 +40,10 @@ devops-bootcamp/
     │   ├── commands.md
     │   ├── homework.md
     │   └── modules/ec2/
-    └── lecture9/         # Docker: сборка образа backend
+    ├── lecture9/         # Docker: сборка образа backend
+    │   ├── commands.md
+    │   └── homework.md
+    └── lecture10/        # Docker Compose: полный стек
         ├── commands.md
         └── homework.md
 ```
