@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME      = "devops-bootcamp-backend"
-        DOCKER_HUB_REPO = "YOUR_DOCKERHUB_USERNAME/devops-bootcamp-backend"
+        DOCKER_HUB_REPO = "psychodol/devops-bootcamp-backend"
     }
 
     stages {
@@ -42,13 +42,13 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh """
-                        echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
-                        docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${DOCKER_HUB_REPO}:${BUILD_NUMBER}
-                        docker tag ${IMAGE_NAME}:latest           ${DOCKER_HUB_REPO}:latest
-                        docker push ${DOCKER_HUB_REPO}:${BUILD_NUMBER}
-                        docker push ${DOCKER_HUB_REPO}:latest
-                    """
+                    sh '''
+                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                        docker tag $IMAGE_NAME:$BUILD_NUMBER $DOCKER_HUB_REPO:$BUILD_NUMBER
+                        docker tag $IMAGE_NAME:latest        $DOCKER_HUB_REPO:latest
+                        docker push $DOCKER_HUB_REPO:$BUILD_NUMBER
+                        docker push $DOCKER_HUB_REPO:latest
+                    '''
                 }
             }
         }
