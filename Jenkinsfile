@@ -35,6 +35,14 @@ pipeline {
             }
         }
 
+stage('Security Scan') {
+    steps {
+        sh """
+            docker scout quickview ${IMAGE_NAME}:${BUILD_NUMBER} || true
+        """
+    }
+}
+
         stage('Push') {
             steps {
                 withCredentials([usernamePassword(
