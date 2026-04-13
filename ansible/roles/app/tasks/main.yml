@@ -1,0 +1,57 @@
+---
+# Роль: app
+# Деплоит devops-bootcamp стек (backend + nginx + redis) через docker-compose
+
+- name: Установить docker-compose
+  get_url:
+    url: https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: '0755'
+  tags: install
+
+- name: Создать директорию приложения
+  file:
+    path: /opt/devops-bootcamp
+    state: directory
+    owner: ec2-user
+    mode: '0755'
+  tags: install
+
+- name: Скопировать nginx.conf
+  copy:
+    src: nginx.conf
+    dest: /opt/devops-bootcamp/nginx.conf
+    owner: ec2-user
+    mode: '0644'
+  tags: deploy
+
+- name: Скопировать frontend index.html
+  copy:
+    src: index.html
+    dest: /opt/devops-bootcamp/index.html
+    owner: ec2-user
+    mode: '0644'
+  tags: deploy
+
+- name: Скопировать docker-compose.yml
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/devops-bootcamp/docker-compose.yml
+    owner: ec2-user
+    mode: '0644'
+  notify: Restart app
+  tags: deploy
+
+- name: Скачать образы
+  command: docker-compose pull
+  args:
+    chdir: /opt/devops-bootcamp
+  become_user: ec2-user
+  tags: deploy
+
+- name: Запустить приложение
+  command: docker-compose up -d
+  args:
+    chdir: /opt/devops-bootcamp
+  become_user: ec2-user
+  tags: deploy

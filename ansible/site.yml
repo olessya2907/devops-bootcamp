@@ -1,0 +1,25 @@
+---
+# Лекция 14 — Ansible Deploy: деплой devops-bootcamp на EC2
+#
+# Запуск (первый раз — установка + деплой):
+#   ansible-playbook site.yml
+#
+# Задеплоить конкретную версию:
+#   ansible-playbook site.yml -e "app_version=42"
+#
+# Только деплой без установки Docker:
+#   ansible-playbook site.yml --tags deploy
+#
+# Dry run — посмотреть что изменится:
+#   ansible-playbook site.yml --check
+
+- name: Деплой devops-bootcamp на EC2
+  hosts: web
+  become: yes
+  vars:
+    docker_hub_user: "user_name" # заменить на свой Docker Hub username
+    app_version: "latest" # или конкретный BUILD_NUMBER: -e "app_version=42"
+
+  roles:
+    - docker # устанавливает Docker и docker-compose
+    - app # деплоит devops-bootcamp стек

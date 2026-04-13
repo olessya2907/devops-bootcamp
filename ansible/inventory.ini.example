@@ -1,0 +1,12 @@
+# Скопируй этот файл в inventory.ini и замени IP на реальный:
+#   cp inventory.ini.example inventory.ini
+#
+# inventory.ini добавлен в .gitignore — реальные IP не попадают в git
+
+[web]
+1.2.3.4   ansible_ssh_private_key_file=~/.ssh/ВАШ_КЛЮЧ.pem
+
+# Пример с несколькими серверами:
+# [web]
+# 1.2.3.4   ansible_ssh_private_key_file=~/.ssh/key.pem
+# 5.6.7.8   ansible_ssh_private_key_file=~/.ssh/key.pem

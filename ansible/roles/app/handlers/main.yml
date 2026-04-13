@@ -1,0 +1,9 @@
+---
+# Handler: перезапускает контейнеры если docker-compose.yml изменился
+# Вызывается через notify: Restart app в tasks/main.yml
+
+- name: Restart app
+  command: docker-compose up -d --force-recreate
+  args:
+    chdir: /opt/devops-bootcamp
+  become_user: ec2-user

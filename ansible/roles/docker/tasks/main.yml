@@ -1,0 +1,24 @@
+---
+# Роль: docker
+# Устанавливает Docker на Amazon Linux 2023
+# На AL2023 Docker доступен из стандартного репозитория — внешний репозиторий не нужен
+
+- name: Установить Docker
+  dnf:
+    name: docker
+    state: present
+  tags: install
+
+- name: Запустить и включить Docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  tags: install
+
+- name: Добавить ec2-user в группу docker
+  user:
+    name: ec2-user
+    groups: docker
+    append: yes
+  tags: install

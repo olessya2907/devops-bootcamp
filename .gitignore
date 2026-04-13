@@ -21,5 +21,8 @@ terraform.tfvars
 .DS_Store
 Thumbs.db
 
+# Ansible
+ansible/inventory.ini
+
 # Logs
 *.log

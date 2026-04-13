@@ -1,0 +1,49 @@
+---
+# Лекция 13 — Ansible: настройка nginx на EC2
+#
+# Запуск:
+#   ansible-playbook playbook.yml
+#
+# Предварительно создай inventory.ini:
+#   cp inventory.ini.example inventory.ini
+#   # замени IP и путь к ключу
+
+- name: Настроить веб-сервер
+  hosts: web
+  become: yes
+  vars:
+    app_name: "DevOps Bootcamp"
+    server_env: "production"
+
+  tasks:
+    - name: Установить nginx
+      yum:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Запустить и включить nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Создать кастомную страницу
+      copy:
+        content: |
+          <!DOCTYPE html>
+          <html lang="ru">
+          <head>
+            <meta charset="UTF-8">
+            <title>DevOps Bootcamp</title>
+          </head>
+          <body style="font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 2rem;">
+            <h1>{{ app_name }}</h1>
+            <p>Среда: {{ server_env }}</p>
+            <p>Сервер: {{ ansible_hostname }}</p>
+            <p>Настроено через Ansible ✓</p>
+          </body>
+          </html>
+        dest: /usr/share/nginx/html/index.html
+        owner: root
+        mode: '0644'
